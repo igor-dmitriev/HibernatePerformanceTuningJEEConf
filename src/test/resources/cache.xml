@@ -1,0 +1,4 @@
+<dataset>
+    <Client id="1" name="Anton" age="15"/>
+    <City id="1" name="Kiev" country="Ukraine"/>
+</dataset>

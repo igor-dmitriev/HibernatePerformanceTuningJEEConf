@@ -1,0 +1,16 @@
+<dataset>
+    <Client id="1" name="Anton" age="15"/>
+    <Client id="2" name="Artem" age="24"/>
+    <Client id="3" name="Igor" age="19"/>
+    <Client id="4" name="Kolya" age="21"/>
+    <Client id="5" name="Alex" age="29"/>
+
+    <Account id="1" amount="150" id_client="1"/>
+    <Account id="2" amount="150" id_client="1"/>
+    <Account id="3" amount="150" id_client="1"/>
+    <Account id="4" amount="90" id_client="2"/>
+    <Account id="5" amount="300" id_client="2"/>
+    <Account id="6" amount="500" id_client="3"/>
+    <Account id="7" amount="40" id_client="4"/>
+    <Account id="8" amount="190" id_client="5"/>
+</dataset>
