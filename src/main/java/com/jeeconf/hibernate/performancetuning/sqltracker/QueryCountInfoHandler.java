@@ -26,7 +26,7 @@ public class QueryCountInfoHandler implements QueryHandler {
                 queryCountInfo.incrementCallCount();
                 break;
             default:
-                throw new IllegalStateException("");
+                throw new IllegalArgumentException("There is no QueryType hander:" + queryType);
 
         }
     }
