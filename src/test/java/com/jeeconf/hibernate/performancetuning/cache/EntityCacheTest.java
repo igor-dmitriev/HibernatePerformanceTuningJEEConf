@@ -3,11 +3,14 @@ package com.jeeconf.hibernate.performancetuning.cache;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jeeconf.hibernate.performancetuning.BaseTest;
 import com.jeeconf.hibernate.performancetuning.cache.entity.City;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.annotations.QueryHints;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import static com.jeeconf.hibernate.performancetuning.sqltracker.AssertSqlCount.assertSelectCount;
+import javax.persistence.Cache;
+import javax.persistence.EntityManagerFactory;
+
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by Igor Dmitriev on 4/30/16
@@ -15,32 +18,37 @@ import static com.jeeconf.hibernate.performancetuning.sqltracker.AssertSqlCount.
 @DatabaseSetup("/cache.xml")
 public class EntityCacheTest extends BaseTest {
 
+    @Autowired
+    EntityManagerFactory emf;
+
     @Test
     public void secondLevel() {
-        SessionFactory factory = getSessionFactory();
-        try (Session s1 = factory.openSession()) {
-            City city1 = s1.get(City.class, 1);
-        }
+        City city = em.find(City.class, 1);
 
-        try (Session s2 = factory.openSession()) {
-            City city2 = s2.get(City.class, 1);
-        }
+        Cache secondLevelCache = emf.getCache();
+        assertTrue(secondLevelCache.contains(City.class, 1));
+        //secondLevelCache.evict(City.class, 1);
+        em.clear();
+        City cachedCity = em.find(City.class, 1);
     }
 
     @Test
-    public void queryCacheWithCacheableEntities() {
-        SessionFactory factory = getSessionFactory();
+    public void queryCache() {
         String query = "select c from City c";
-
-        try (Session s1 = factory.openSession()) {
-            s1.createQuery(query).setCacheable(true).list();
-        }
-
-        try (Session s2 = factory.openSession()) {
-            s2.createQuery(query).setCacheable(true).list();
-        }
-
-        assertSelectCount(1);
+        executeCacheableQuery(query);
+        em.clear();
+        executeCacheableQuery(query);
     }
 
+    @Test
+    public void queryCacheConjuction() {
+        String query = "select c from Client c";
+        executeCacheableQuery(query);
+        em.clear();
+        executeCacheableQuery(query);
+    }
+
+    private void executeCacheableQuery(String query) {
+        em.createQuery(query).setHint(QueryHints.CACHEABLE, Boolean.TRUE.toString()).getResultList();
+    }
 }
