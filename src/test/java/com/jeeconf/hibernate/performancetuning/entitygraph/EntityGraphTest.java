@@ -18,6 +18,7 @@ public class EntityGraphTest extends BaseTest {
     @Test
     public void clientFetchAccounts() {
         List<Client> clients = findAdultClientsFetchAccounts();
+        clients.forEach(c -> c.getAccounts().size());
     }
 
     private TypedQuery<Client> findAdultClientsQuery() {
