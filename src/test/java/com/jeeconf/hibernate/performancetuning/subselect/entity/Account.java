@@ -1,4 +1,4 @@
-package com.jeeconf.hibernate.performancetuning.sqltracker.entity;
+package com.jeeconf.hibernate.performancetuning.subselect.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +18,9 @@ public class Account {
     private Integer id;
 
     private int amount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_client")
+    private Client client;
 
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Igor Dmitriev on 4/29/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 4/29/16
  */
 @Entity
 @Getter
@@ -17,6 +17,7 @@ import java.util.List;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_client")
     private Integer id;
 
     private String name;

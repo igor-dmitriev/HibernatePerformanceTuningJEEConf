@@ -1,7 +1,7 @@
 package com.jeeconf.hibernate.performancetuning.sqltracker;
 
 /**
- * Created by Igor Dmitriev on 12/6/15
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 12/6/15
  */
 public class QueryCountInfoHolder {
     private static ThreadLocal<QueryCountInfo> queryInfoHolder = new ThreadLocal<QueryCountInfo>() {

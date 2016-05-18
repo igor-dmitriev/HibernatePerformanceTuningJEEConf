@@ -1,13 +1,13 @@
-package com.jeeconf.hibernate.performancetuning.readonly.service;
+package com.jeeconf.hibernate.performancetuning.dirtychecking.service;
 
+import com.jeeconf.hibernate.performancetuning.dirtychecking.repository.ClientRepository;
 import com.jeeconf.hibernate.performancetuning.readonly.entity.Client;
-import com.jeeconf.hibernate.performancetuning.readonly.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by Igor Dmitriev on 4/30/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 4/30/16
  */
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -22,6 +22,6 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional(readOnly = true)
     public Client findClient(Integer id) {
-        return clientRepository.findOne(id);
+        return clientRepository.findById(id);
     }
 }

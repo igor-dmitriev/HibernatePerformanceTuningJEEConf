@@ -1,4 +1,4 @@
-package com.jeeconf.hibernate.performancetuning.nplusone.entity;
+package com.jeeconf.hibernate.performancetuning.batchprocessing.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +22,6 @@ public class Client {
     private String name;
     private int age;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Account> accounts = new ArrayList<>();
 }

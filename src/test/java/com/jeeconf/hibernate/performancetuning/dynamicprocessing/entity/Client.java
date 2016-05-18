@@ -1,7 +1,9 @@
-package com.jeeconf.hibernate.performancetuning.nplusone.entity;
+package com.jeeconf.hibernate.performancetuning.dynamicprocessing.entity;
 
+import com.jeeconf.hibernate.performancetuning.nplusone.entity.Account;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@DynamicUpdate(true)
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

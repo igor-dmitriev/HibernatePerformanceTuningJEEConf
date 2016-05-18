@@ -1,14 +1,16 @@
-package com.jeeconf.hibernate.performancetuning.batching.entity;
+package com.jeeconf.hibernate.performancetuning.subselect.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Igor Dmitriev on 4/29/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 4/29/16
  */
 @Entity
 @Getter
@@ -16,11 +18,13 @@ import java.util.List;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_client")
     private Integer id;
 
     private String name;
     private int age;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "client")
+    @Fetch(FetchMode.SUBSELECT)
     private List<Account> accounts = new ArrayList<>();
 }

@@ -3,7 +3,7 @@ package com.jeeconf.hibernate.performancetuning.sqltracker;
 import lombok.Getter;
 
 /**
- * Created by Igor Dmitriev on 12/6/15
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 12/6/15
  */
 @Getter
 public class QueryCountInfo {

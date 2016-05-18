@@ -13,7 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import static junit.framework.Assert.assertTrue;
 
 /**
- * Created by Igor Dmitriev on 4/30/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 4/30/16
  */
 @DatabaseSetup("/cache.xml")
 public class EntityCacheTest extends BaseTest {
@@ -22,13 +22,12 @@ public class EntityCacheTest extends BaseTest {
     EntityManagerFactory emf;
 
     @Test
-    public void secondLevel() {
+    public void secondLevelCache() {
         City city = em.find(City.class, 1);
-
         Cache secondLevelCache = emf.getCache();
         assertTrue(secondLevelCache.contains(City.class, 1));
         //secondLevelCache.evict(City.class, 1);
-        em.clear();
+        em.clear(); // clear first level cache
         City cachedCity = em.find(City.class, 1);
     }
 
@@ -41,7 +40,7 @@ public class EntityCacheTest extends BaseTest {
     }
 
     @Test
-    public void queryCacheConjuction() {
+    public void queryCacheInConjunctionWithSecondLevel() {
         String query = "select c from Client c";
         executeCacheableQuery(query);
         em.clear();

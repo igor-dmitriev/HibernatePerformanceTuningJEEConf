@@ -8,7 +8,7 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 
 /**
- * Created by Igor Dmitriev on 4/30/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 4/30/16
  */
 
 @Entity
@@ -19,6 +19,7 @@ import javax.persistence.*;
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_city")
     private Integer id;
 
     private String name;

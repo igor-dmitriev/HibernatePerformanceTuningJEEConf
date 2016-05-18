@@ -1,9 +1,9 @@
-package com.jeeconf.hibernate.performancetuning.batching;
+package com.jeeconf.hibernate.performancetuning.batchprocessing;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jeeconf.hibernate.performancetuning.BaseTest;
-import com.jeeconf.hibernate.performancetuning.batching.entity.Account;
-import com.jeeconf.hibernate.performancetuning.batching.entity.Client;
+import com.jeeconf.hibernate.performancetuning.batchprocessing.entity.Account;
+import com.jeeconf.hibernate.performancetuning.batchprocessing.entity.Client;
 import org.hibernate.CacheMode;
 import org.hibernate.Query;
 import org.hibernate.ScrollMode;
@@ -14,15 +14,15 @@ import org.springframework.test.annotation.Commit;
 import java.util.List;
 
 /**
- * Created by Igor Dmitriev on 4/30/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 4/30/16
  */
-@DatabaseSetup("/batching.xml")
-public class BatchingTest extends BaseTest {
+@DatabaseSetup("/batchprocessing.xml")
+public class BatchingProcessingTest extends BaseTest {
 
     @Commit
     @Test
     public void batchInsert() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             Client client = new Client();
             client.setName("Robot# " + i);
 
@@ -33,7 +33,7 @@ public class BatchingTest extends BaseTest {
             em.persist(client);
             em.persist(account);
 
-            if (i % 50 == 0) { // the same as JDBC batch size
+            if (i % 10 == 0) { // the same as JDBC batch size
                 em.flush();
                 em.clear();
             }
@@ -44,7 +44,7 @@ public class BatchingTest extends BaseTest {
     @Test
     public void batchUpdate() {
         Query query = getSession().createQuery("select c from " +
-                "com.jeeconf.hibernate.performancetuning.batching.entity.Client c");
+                "com.jeeconf.hibernate.performancetuning.batchprocessing.entity.Client c");
         ScrollableResults scroll = query.setFetchSize(50)
                 .setCacheMode(CacheMode.IGNORE)
                 .scroll(ScrollMode.FORWARD_ONLY);
@@ -53,7 +53,7 @@ public class BatchingTest extends BaseTest {
             Client client = (Client) scroll.get(0);
             client.setName("NEW NAME");
 
-            if (++count % 50 == 0) {
+            if (++count % 10 == 0) { // the same as JDBC batch size
                 em.flush();
                 em.clear();
             }
@@ -64,7 +64,7 @@ public class BatchingTest extends BaseTest {
     @Test
     public void batchCascadeDelete() {
         List<Client> clients = em.createQuery("select c from " +
-                "com.jeeconf.hibernate.performancetuning.batching.entity.Client c", Client.class)
+                "com.jeeconf.hibernate.performancetuning.batchprocessing.entity.Client c", Client.class)
                 .getResultList();
         for (Client client : clients) {
             em.remove(client);

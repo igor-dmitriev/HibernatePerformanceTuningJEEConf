@@ -1,4 +1,4 @@
-package com.jeeconf.hibernate.performancetuning.nplusone.entity;
+package com.jeeconf.hibernate.performancetuning.entitygraph.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,13 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NamedEntityGraphs({
+        @NamedEntityGraph(name = Client.ACCOUNTS_GRAPH,
+                attributeNodes = @NamedAttributeNode("accounts"))
+})
 public class Client {
+    public static final String ACCOUNTS_GRAPH = "Client[accounts]";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_client")

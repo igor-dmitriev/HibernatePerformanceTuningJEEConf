@@ -19,7 +19,7 @@ import javax.persistence.PersistenceContext;
 import static com.jeeconf.hibernate.performancetuning.sqltracker.QueryCountInfoHolder.getQueryInfo;
 
 /**
- * Created by Igor Dmitriev on 4/29/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 4/29/16
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
