@@ -30,12 +30,12 @@ public class BatchingProcessingTest extends BaseTest {
             client.getAccounts().add(account);
             account.setClient(client);
 
-            em.persist(client);
-            em.persist(account);
+            getSession().persist(client);
+            getSession().persist(account);
 
             if (i % 10 == 0) { // the same as JDBC batch size
-                em.flush();
-                em.clear();
+                getSession().flush();
+                getSession().clear();
             }
         }
     }
@@ -54,8 +54,8 @@ public class BatchingProcessingTest extends BaseTest {
             client.setName("NEW NAME");
 
             if (++count % 10 == 0) { // the same as JDBC batch size
-                em.flush();
-                em.clear();
+                getSession().flush();
+                getSession().clear();
             }
         }
     }
@@ -63,11 +63,12 @@ public class BatchingProcessingTest extends BaseTest {
     @Commit
     @Test
     public void batchCascadeDelete() {
-        List<Client> clients = em.createQuery("select c from " +
-                "com.jeeconf.hibernate.performancetuning.batchprocessing.entity.Client c", Client.class)
-                .getResultList();
+        //noinspection unchecked
+        List<Client> clients = getSession().createQuery("select c from " +
+                "com.jeeconf.hibernate.performancetuning.batchprocessing.entity.Client c")
+                .list();
         for (Client client : clients) {
-            em.remove(client);
+            getSession().delete(client);
         }
     }
 }

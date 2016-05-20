@@ -1,4 +1,4 @@
-package com.jeeconf.hibernate.performancetuning.dynamicprocessing.entity;
+package com.jeeconf.hibernate.performancetuning.dirtychecking.entity;
 
 import lombok.Getter;
 import lombok.Setter;

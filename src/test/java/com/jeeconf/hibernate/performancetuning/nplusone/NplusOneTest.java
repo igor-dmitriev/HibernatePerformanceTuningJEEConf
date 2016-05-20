@@ -14,20 +14,22 @@ import java.util.List;
 public class NplusOneTest extends BaseTest {
     @Test
     public void npo() {
-        List<Client> clients = em.createQuery("select c from com.jeeconf.hibernate.performancetuning.nplusone.entity.Client" +
-                " c where c.age > :age", Client.class)
+        //noinspection unchecked
+        List<Client> clients = getSession().createQuery("select c from com.jeeconf.hibernate.performancetuning.nplusone.entity.Client" +
+                " c where c.age >= :age")
                 .setParameter("age", 18)
-                .getResultList();
+                .list();
         clients.forEach(c -> c.getAccounts().size());
     }
 
     @Test
     public void joinFetch() {
-        List<Client> clients = em.createQuery("select c from com.jeeconf.hibernate.performancetuning.nplusone.entity.Client c" +
+        //noinspection unchecked
+        List<Client> clients = getSession().createQuery("select c from com.jeeconf.hibernate.performancetuning.nplusone.entity.Client c" +
                 " join fetch c.accounts " +
-                " where c.age > :age", Client.class)
+                " where c.age >= :age")
                 .setParameter("age", 18)
-                .getResultList();
+                .list();
         clients.forEach(c -> c.getAccounts().size());
     }
 

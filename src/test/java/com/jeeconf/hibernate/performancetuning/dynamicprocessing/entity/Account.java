@@ -1,4 +1,4 @@
-package com.jeeconf.hibernate.performancetuning.nplusone.entity;
+package com.jeeconf.hibernate.performancetuning.dynamicprocessing.entity;
 
 import lombok.Getter;
 import lombok.Setter;

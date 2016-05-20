@@ -9,24 +9,25 @@ import org.junit.Test;
 import java.util.List;
 
 /**
- * Created by Igor Dmitriev on 5/18/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 5/18/16
  */
 @DatabaseSetup("/nplusone.xml")
 public class BatchFetchingTest extends BaseTest {
 
     @Test
     public void batchFetching() {
-        List<Client> clients = em.createQuery("select c from com.jeeconf.hibernate.performancetuning.batchfetching.entity.Client c " +
-                "where c.age > :age", Client.class)
+        //noinspection unchecked
+        List<Client> clients = getSession().createQuery("select c from com.jeeconf.hibernate.performancetuning.batchfetching.entity.Client c " +
+                "where c.age >= :age")
                 .setParameter("age", 18)
-                .getResultList();
+                .list();
         clients.forEach(c -> c.getAccounts().size());
     }
 
     @Test
     public void batchSizeCache() {
-        Account account1 = em.find(Account.class, 1);
-        Account account2 = em.find(Account.class, 4);
+        Account account1 = getSession().get(Account.class, 1);
+        Account account2 = getSession().get(Account.class, 4);
         account1.getClient().getName();
     }
 

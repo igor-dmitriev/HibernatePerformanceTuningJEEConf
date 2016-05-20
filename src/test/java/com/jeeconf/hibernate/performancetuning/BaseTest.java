@@ -2,6 +2,7 @@ package com.jeeconf.hibernate.performancetuning;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -57,5 +58,9 @@ public abstract class BaseTest {
 
     protected Session getSession() {
         return em.unwrap(Session.class);
+    }
+
+    protected SessionFactory getSessionFactory() {
+        return getSession().getSessionFactory();
     }
 }

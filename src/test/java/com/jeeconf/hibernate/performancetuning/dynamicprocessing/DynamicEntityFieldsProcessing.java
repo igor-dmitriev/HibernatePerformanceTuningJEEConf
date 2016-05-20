@@ -14,7 +14,8 @@ public class DynamicEntityFieldsProcessing extends BaseTest {
     @Test
     @Commit
     public void dynamicUpdate() {
-        Client client = em.find(Client.class, 1);
-        client.setName("Oleg");
+        // add @DynamicUpdate(true) to Client
+        Client client = getSession().get(Client.class, 1);
+        client.setAge(35);
     }
 }

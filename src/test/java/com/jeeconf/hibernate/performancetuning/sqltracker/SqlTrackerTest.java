@@ -3,6 +3,7 @@ package com.jeeconf.hibernate.performancetuning.sqltracker;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.jeeconf.hibernate.performancetuning.BaseTest;
 import com.jeeconf.hibernate.performancetuning.sqltracker.entity.Account;
+import com.jeeconf.hibernate.performancetuning.sqltracker.entity.Client;
 import org.junit.Test;
 
 /**
@@ -14,14 +15,14 @@ public class SqlTrackerTest extends BaseTest {
 
     @Test
     public void showStatistics() {
-        Account account = em.find(Account.class, 1);
+        Client client = getSession().get(Client.class, 1);
     }
 
     @Test
     public void sqlCountAssertion() {
         AssertSqlCount.reset();
-        Account account1 = em.find(Account.class, 1);
-        Account account2 = em.find(Account.class, 2);
+        Account account1 = getSession().get(Account.class, 1);
+        Account account2 = getSession().get(Account.class, 2);
         AssertSqlCount.assertSelectCount(2);
     }
 }

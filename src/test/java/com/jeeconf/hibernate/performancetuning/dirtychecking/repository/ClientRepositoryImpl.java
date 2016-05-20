@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Created by Igor Dmitriev on 5/18/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 5/18/16
  */
 @Repository
 public class ClientRepositoryImpl implements ClientRepository {

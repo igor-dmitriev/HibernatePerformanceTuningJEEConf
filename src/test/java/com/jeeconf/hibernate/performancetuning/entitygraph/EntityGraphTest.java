@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Created by Igor Dmitriev on 5/18/16
+ * Created by Igor Dmitriev / Mikalai Alimenkou on 5/18/16
  */
 @DatabaseSetup("/nplusone.xml")
 public class EntityGraphTest extends BaseTest {
@@ -23,7 +23,7 @@ public class EntityGraphTest extends BaseTest {
 
     private TypedQuery<Client> findAdultClientsQuery() {
         return em.createQuery("select c from com.jeeconf.hibernate.performancetuning.entitygraph.entity.Client c " +
-                "where c.age > :age", Client.class)
+                "where c.age >= :age", Client.class)
                 .setParameter("age", 18);
     }
 
