@@ -23,6 +23,6 @@ public class SqlTrackerTest extends BaseTest {
         AssertSqlCount.reset();
         Account account1 = getSession().get(Account.class, 1);
         Account account2 = getSession().get(Account.class, 2);
-        AssertSqlCount.assertSelectCount(2);
+        AssertSqlCount.assertSelectCount(1);
     }
 }
